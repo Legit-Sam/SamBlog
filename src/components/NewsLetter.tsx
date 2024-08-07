@@ -65,7 +65,7 @@ const Newsletter = () => {
       <div className="container py-8">
         <div className="mx-auto mb-8 max-w-[650px] text-center">
           <h2 className="mb-2 text-500 font-500 md:text-650">
-            Lexicon Newsletter
+            SamBlog Newsletter
           </h2>
           <p>
             A bi-weekly newsletter of design inspiration, resources and anything
