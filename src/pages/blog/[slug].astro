@@ -5,6 +5,8 @@ import { formatDate } from '../../libs/formatDate';
 import Layout from '../../layouts/layout.astro';
 import { Image } from 'astro:assets';
 import { PortableText } from 'astro-portabletext';
+import Comments from '../../components/Comments.astro';
+import CommentForm from '../../components/CommentForm';
 
 export const prerender = true;
 
@@ -24,7 +26,7 @@ if (slug === undefined) {
 
 // Fetch the each blog post from sanity by that slug
 const query = `*[_type == "post" && slug.current == $slug][0]{
-
+_id,
 name,
 "slug": slug.current,
 "image": image.asset->url,
@@ -36,8 +38,6 @@ content,
 }`;
 
 const post: PostItem = await sanityClient.fetch(query, { slug });
-
-// console.log(post);
 ---
 
 <Layout title={post.name}>
@@ -78,9 +78,9 @@ const post: PostItem = await sanityClient.fetch(query, { slug });
         </h1>
 
         <div class="mb-4 flex items-center justify-center gap-5">
-            <p class="text-200 text-primary-400 space-between">Written by {post.author}</p>
-            <span class="text-neutral-300">{formatDate(post.date)}</span>
-          </div>
+          <p class="text-200 text-primary-400">Written by {post.author}</p>
+          <span class="text-neutral-300">{formatDate(post.date)}</span>
+        </div>
 
         <ul class="mb-4 flex items-center justify-center gap-4">
           {
@@ -99,6 +99,11 @@ const post: PostItem = await sanityClient.fetch(query, { slug });
         <PortableText value={post.content} />
       </article>
     </div>
+
+    <div class="md:grid md:grid-cols-2 md:gap-10">
+      <CommentForm postId={post._id} client:visible />
+      <Comments postId={post._id} />
+    </div>
   </div>
 </Layout>
 
@@ -112,10 +117,6 @@ const post: PostItem = await sanityClient.fetch(query, { slug });
     min-height: 60vh;
   }
 
-  .space-between {
-    margin-right: 20px; /* Adjust the value as needed */
-  }
-
   .overlay {
     position: absolute;
     top: 0;
@@ -126,6 +127,5 @@ const post: PostItem = await sanityClient.fetch(query, { slug });
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
   }
 </style>
