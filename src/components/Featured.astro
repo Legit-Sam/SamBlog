@@ -57,8 +57,8 @@ const posts: PostItem[] = await sanityClient.fetch(
       }
     </div>
 
-    <!-- Other posts -->
-    <div class="lg:self-center">
+    <!-- Other posts with scrollable sidebar -->
+    <div class="lg:self-center max-h-[80vh] overflow-y-auto scrollbar-hide">
       {
         posts.slice(1).map((post) => (
           <div class="mb-8 rounded-lg border-[1.5px] md:mb-0 md:flex md:border-none">
@@ -105,5 +105,15 @@ const posts: PostItem[] = await sanityClient.fetch(
 
   .post:hover .overlay {
     opacity: 0.75;
+  }
+
+  /* Tailwind CSS custom scrollbar hide */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 </style>
