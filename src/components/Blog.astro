@@ -12,42 +12,42 @@ const posts: PostItem[] = await sanityClient.fetch(
 
 <section class="container mt-12">
   <div class="mb-8">
-    <h2 class="text-500 font-500 leading-none md:text-650">Recent posts</h2>
+    <h2 class="text-500 font-500 leading-none md:text-650">Recent Posts</h2>
   </div>
 
   <div class="md:grid md:grid-cols-3 md:gap-4">
     {
       posts.map((post) => (
-        <div class="mb-4 rounded-lg border-[1.5px] border-grey-200 md:mb-0">
+        <div class="mb-4 flex flex-col justify-between rounded-lg border-[1.5px] border-grey-200 md:mb-0">
           <a href={`/blog/${post.slug}`}>
             <Image
               src={post.image}
               alt={post.name}
               width={500}
               height={500}
-              class="h-fit w-full rounded-t-lg"
+              class="h-64 w-full rounded-t-lg object-cover"
             />
           </a>
 
-          <div class="px-4">
+          <div class="flex-grow px-4">
             <div class="mb-4 mt-4 flex items-center justify-between md:mb-6">
               <span class="text-grey-200">{formatDate(post.date)}</span>
               <span class="text-primary-400">{post.category}</span>
             </div>
 
-            <h2 class="mb-2 inline-block text-300 font-600">{post.name}</h2>
+            <h2 class="mb-2 text-300 font-600">{post.name}</h2>
 
             <article class="mb-4 line-clamp-3 text-grey-200">
               <PortableText value={post.content} />
             </article>
-
-            <a
-              class="mb-4 inline-block w-full rounded-lg bg-primary-400 px-4 py-3 text-center font-500"
-              href={`/blog/${post.slug}`}
-            >
-              Read More
-            </a>
           </div>
+
+          <a
+            class="mb-4 inline-block w-5/6 mx-auto rounded-lg bg-primary-400 px-4 py-3 text-center font-500"
+            href={`/blog/${post.slug}`}
+          >
+            Read More
+          </a>
         </div>
       ))
     }
