@@ -57,8 +57,8 @@ const posts: PostItem[] = await sanityClient.fetch(
       }
     </div>
 
-    <!-- Other posts with scrollable sidebar -->
-    <div class="lg:self-center max-h-[80vh] overflow-y-auto scrollbar-hide">
+    <!-- Other posts with reduced paragraph height -->
+    <div class="lg:self-center max-h-[50vh] overflow-y-auto scrollbar-hide">
       {
         posts.slice(1).map((post) => (
           <div class="mb-8 rounded-lg border-[1.5px] md:mb-0 md:flex md:border-none">
@@ -80,7 +80,7 @@ const posts: PostItem[] = await sanityClient.fetch(
                 </h3>
               </a>
 
-              <article class="mb-4 line-clamp-3 text-grey-200 md:hidden">
+              <article class="mb-4 line-clamp-2 text-grey-200 md:hidden">
                 <PortableText value={post.content} />
               </article>
 
